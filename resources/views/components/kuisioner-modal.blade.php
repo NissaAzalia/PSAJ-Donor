@@ -8,131 +8,78 @@
         </button>
         
         <h2 class="text-xl font-bold mb-4 text-red-700">Form Kuisioner</h2>
-        <form>
-            <div class="border-t border-gray-300 pt-4">
-                <h2 class="text-red-600 font-semibold mb-2">Informasi Pribadi</h2>
-                <div class="mb-4">
-                    <label class="block text-gray-700 mb-1" for="nama">Nama</label>
-                    <input class="w-full px-3 py-2 border border-gray-300 rounded" type="text" id="nama" name="nama">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 mb-1" for="umur">Umur</label>
-                    <input class="w-full px-3 py-2 border border-gray-300 rounded" type="number" id="umur" name="umur">
-                </div>
-            </div>
-
+        <form id="kuisionerForm" action="{{ route('simpan.kuisioner') }}" method="POST">
+            @csrf 
             <div class="border-t border-gray-300 pt-4">
                 <h2 class="text-red-600 font-semibold mb-2">Kondisi Kesehatan</h2>
-                
+
                 <div class="mb-4">
-                    <p class="text-gray-700 mb-1">Apakah Anda merasa sehat dan tidak dalam kondisi kelelahan?</p>
-                    <div class="w-full flex items-center">
-                        <label class="flex items-center">
-                            <input class="mr-2" type="radio" id="sehat-ya" name="sehat" value="ya"> Ya
-                        </label>
-                        <label class="flex items-center ml-8">
-                            <input class="mr-2" type="radio" id="sehat-tidak" name="sehat" value="tidak"> Tidak
-                        </label>
-                    </div>
+                    <p class="text-gray-700 mb-1">Apakah Anda merasa dalam kondisi kelelahan?</p>
+                    <label class="mr-4"><input type="radio" name="sehat" value="ya"> Ya</label>
+                    <label><input type="radio" name="sehat" value="tidak"> Tidak</label>
                 </div>
 
                 <div class="mb-4">
                     <p class="text-gray-700 mb-1">Apakah Anda mengonsumsi obat-obatan tertentu dalam waktu dekat?</p>
-                    <div class="w-full flex items-center">
-                        <label class="flex items-center">
-                            <input class="mr-2" type="radio" id="obat-ya" name="obat" value="ya"> Ya
-                        </label>
-                        <label class="flex items-center ml-8">
-                            <input class="mr-2" type="radio" id="obat-tidak" name="obat" value="tidak"> Tidak
-                        </label>
-                    </div>
+                    <label class="mr-4"><input type="radio" name="obat" value="ya"> Ya</label>
+                    <label><input type="radio" name="obat" value="tidak"> Tidak</label>
                 </div>
 
                 <div class="mb-4">
                     <p class="text-gray-700 mb-1">Apakah Anda memiliki penyakit jantung atau gangguan kesehatan serius lainnya?</p>
-                    <div class="w-full flex items-center">
-                        <label class="flex items-center">
-                            <input class="mr-2" type="radio" id="jantung-ya" name="jantung" value="ya"> Ya
-                        </label>
-                        <label class="flex items-center ml-8">
-                            <input class="mr-2" type="radio" id="jantung-tidak" name="jantung" value="tidak"> Tidak
-                        </label>
-                    </div>
+                    <label class="mr-4"><input type="radio" name="jantung" value="ya"> Ya</label>
+                    <label><input type="radio" name="jantung" value="tidak"> Tidak</label>
                 </div>
 
                 <div class="mb-4">
                     <p class="text-gray-700 mb-1">Apakah Anda sedang hamil atau menyusui?</p>
-                    <div class="w-full flex items-center">
-                        <label class="flex items-center">
-                            <input class="mr-2" type="radio" id="hamil-ya" name="hamil" value="ya"> Ya
-                        </label>
-                        <label class="flex items-center ml-8">
-                            <input class="mr-2" type="radio" id="hamil-tidak" name="hamil" value="tidak"> Tidak
-                        </label>
-                    </div>
+                    <label class="mr-4"><input type="radio" name="hamil" value="ya"> Ya</label>
+                    <label><input type="radio" name="hamil" value="tidak"> Tidak</label>
                 </div>
 
                 <div class="mb-4">
                     <p class="text-gray-700 mb-1">Apakah Anda pernah terpapar HIV/AIDS, Hepatitis B, atau Hepatitis C?</p>
-                    <div class="w-full flex items-center">
-                        <label class="flex items-center">
-                            <input class="mr-2" type="radio" id="hiv-ya" name="hiv" value="ya"> Ya
-                        </label>
-                        <label class="flex items-center ml-8">
-                            <input class="mr-2" type="radio" id="hiv-tidak" name="hiv" value="tidak"> Tidak
-                        </label>
-                    </div>
+                    <label class="mr-4"><input type="radio" name="hiv" value="ya"> Ya</label>
+                    <label><input type="radio" name="hiv" value="tidak"> Tidak</label>
                 </div>
             </div>
 
+            <!-- Input Hidden untuk Status -->
+            <input type="hidden" name="kuisioner_status" id="kuisioner_status">
+
             <div class="flex justify-end mt-6">
                 <button type="button" onclick="document.getElementById('kuisionerModal').classList.add('hidden')" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Batal</button>
-                <button type="submit" onclick="cekKuisioner(event)" class="bg-red-700 text-white px-4 py-2 rounded">Kirim</button>
-
+                <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded">Kirim</button>
             </div>
         </form>
         <script>
-           function cekKuisioner(event) {
-                event.preventDefault(); // Mencegah form terkirim otomatis
-
-                let sehat = document.querySelector('input[name="sehat"]:checked');
-                let obat = document.querySelector('input[name="obat"]:checked');
-                let jantung = document.querySelector('input[name="jantung"]:checked');
-                let hamil = document.querySelector('input[name="hamil"]:checked');
-                let hiv = document.querySelector('input[name="hiv"]:checked');
-
-                // Validasi apakah semua pertanyaan sudah dijawab
-                if (!sehat || !obat || !jantung || !hamil || !hiv) {
-                    alert("Harap isi semua pertanyaan kuisioner.");
-                    return;
+            document.getElementById("kuisionerForm").addEventListener("submit", function(event) {
+                event.preventDefault(); 
+        
+                let status = "lolos";
+                const pertanyaan = ["sehat", "obat", "jantung", "hamil", "hiv"];
+        
+                for (let i = 0; i < pertanyaan.length; i++) {
+                    let jawaban = document.querySelector(`input[name="${pertanyaan[i]}"]:checked`);
+                    if (jawaban && jawaban.value === "ya") {
+                        status = "tidak_lolos";
+                        break;
+                    }
                 }
-
-                let status = "lolos"; // Default lolos
-                if (
-                    sehat.value === "ya" ||
-                    obat.value === "ya" ||
-                    jantung.value === "ya" ||
-                    hamil.value === "ya" ||
-                    hiv.value === "ya"
-                ) {
-                    status = "tidak_lolos";
-                }
-
-                // Simpan status ke localStorage
-                localStorage.setItem("kuisionerStatus", status);
-
-                // Sembunyikan modal kuisioner
-                document.getElementById("kuisionerModal").classList.add("hidden");
-
-                // Reload halaman utama supaya daftar section bisa diperbarui
-                setTimeout(() => {
-                    window.location.reload();
-                }, 500);
-            }
-
+        
+                document.getElementById("kuisioner_status").value = status;
+                this.submit(); // Kirim form setelah status diatur
+            });
         </script>
         
-        
-        
+        <!-- Flash Message Notifikasi -->
+        @if(session('success'))
+            <div class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+                {{ session('success') }}
+            </div>
+            <script>
+                setTimeout(() => document.querySelector('.fixed.bottom-4.right-4').remove(), 3000);
+            </script>
+        @endif
     </div>
 </div>

@@ -14,11 +14,24 @@ class Pendaftar extends Model
 
     // Kolom yang bisa diisi (fillable)
     protected $fillable = [
-        'nama',
-        'umur',
-        'jenis_kelamin',
-        'golongan_darah',
-        'nohp',
-        'riwayat_kesehatan',
+       'anggota_id', 
+        'user_id', 
+        'nama', 
+        'umur', 
+        'golongan_darah', 
+        'riwayat_kesehatan'
     ];
+
+    public function anggota()
+    {
+        return $this->belongsTo(Anggota::class, 'anggota_id');
+    }
+    
+
+    public function transaksiDarah()
+    {
+        return $this->hasMany(TransaksiDarah::class)->orderBy('tanggal', 'desc');
+    }
+
+
 }

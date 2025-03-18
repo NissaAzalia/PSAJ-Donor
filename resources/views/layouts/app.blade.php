@@ -34,6 +34,7 @@
 
             @include('components.kuisioner-modal')
             @include('components.daftar-modal')
+            @include('components.member-modal')
         </div>
     </body>
 </html>
